@@ -8,7 +8,11 @@ import (
 // This function get all users from Database
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	allUser := Uc.GetAllUsers()
-	json.NewEncoder(w).Encode(allUser)
 
+	allUsers, err := Uc.GetAllUsers()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	json.NewEncoder(w).Encode(allUsers)
 }

@@ -11,8 +11,11 @@ import (
 func DeleteExistingUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	parms := mux.Vars(r)
-	Uc.DeleteUser(parms["id"])
-	json.NewEncoder(w).Encode(parms["id"])
-
+	params := mux.Vars(r)
+	err := Uc.DeleteUser(params["id"])
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	json.NewEncoder(w).Encode(map[string]string{"message": "User deleted", "userId": params["id"]})
 }
