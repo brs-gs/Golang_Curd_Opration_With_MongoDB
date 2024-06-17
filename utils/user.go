@@ -26,6 +26,7 @@ func NewUserController() UserController {
 	return &userController{}
 }
 func (uc *userController) InsertUser(user models.User) error {
+
 	user.ID = primitive.NewObjectID()
 	inserted, err := Collection.InsertOne(context.Background(), user)
 	if err != nil {
