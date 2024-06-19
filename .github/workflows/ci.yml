@@ -23,11 +23,18 @@ jobs:
     - name: Install Golang Dependencies
       run: go mod download
 
-    - name: Build
+    - name: Build Golang Application
       run: go build -v ./...
 
-    - name: Run tests
-      run: go test -v ./...
+    - name: Run Tests 
+     run: |
+        go test -coverprofile=coverage.out ./...
+        go tool cover -func=coverage.out | tee coverage.txt
+        COVERAGE=$(go tool cover -func=coverage.out | grep total | awk '{print substr($3, 1, length($3)-1)}')
+        echo "Total coverage: $COVERAGE%"
+        if (( $(echo "$COVERAGE < 80.0" | bc -l) )); then
+          echo "Test coverage is below 80%" && exit 1
+        fi
 
   deploy_dev:
     runs-on: ubuntu-latest
