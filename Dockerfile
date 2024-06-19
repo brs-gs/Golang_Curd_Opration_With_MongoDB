@@ -1,20 +1,23 @@
-# Use an official Golang runtime as a base image
-FROM golang:1.22.4-alpine AS builder
+# Start with a Golang base image
+FROM golang:1.22.4-alpine
 
-# Set the working directory inside the container
+# Set the Current Working Directory inside the container
 WORKDIR /app
 
-# Copy the local package files to the container's workspace
-COPY . .
+# Copy go mod and sum files
+COPY go.mod go.sum ./
 
-# Download and install any required dependencies
+# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
 RUN go mod download
 
-# Build the Go application
+# Copy the source code into the container
+COPY . .
+
+# Build the Go app
 RUN go build -o main .
 
-# Expose port 8000 to the outside world
+# This container exposes port 8080 to the outside world
 EXPOSE 8000
 
-# Command to run the executable
+# Run the executable
 CMD ["./main"]
