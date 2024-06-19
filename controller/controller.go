@@ -13,5 +13,4 @@ func RunController() *mux.Router {
 	router.HandleFunc("/api/v1/user/{id}", DeleteExistingUser).Methods("DELETE")
 
 	return router
-
 }
