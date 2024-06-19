@@ -45,7 +45,6 @@ jobs:
 
     - name: Deploy to Development
       run: echo "Deploying to Development environment"
-      # Add your development deployment steps here
 
   deploy_stage:
     runs-on: ubuntu-latest
@@ -63,7 +62,6 @@ jobs:
 
     - name: Deploy to Staging
       run: echo "Deploying to Staging environment"
-      # Add your staging deployment steps here
 
   deploy_prod:
     runs-on: ubuntu-latest
@@ -81,4 +79,3 @@ jobs:
 
     - name: Deploy to Production
       run: echo "Deploying to Production environment"
-      # Add your production deployment steps here
