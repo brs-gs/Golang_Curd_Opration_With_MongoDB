@@ -1,0 +1,12 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample server for golang-Curd-Oprations-With-Mongodb.",
+        "title": "golang-Curd-Oprations-With-Mongodb",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8000",
+    "basePath": "/",
+    "paths": {}
+}

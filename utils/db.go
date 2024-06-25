@@ -2,7 +2,6 @@ package utils
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -19,12 +18,13 @@ var Collection *mongo.Collection
 
 // create database connection
 func init() {
+	log.Println("Starting MongoDB connection")
 	clientOptions := options.Client().ApplyURI(connectionString) // Connection to MongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Failed to connect to MongoDB: %v", err)
 	}
-	Collection = client.Database(dbName).Collection(collectionName)
 
-	fmt.Println("MongoDB Connection instance is ready")
+	Collection = client.Database(dbName).Collection(collectionName)
+	log.Println("MongoDB Connection instance is ready")
 }
