@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	connectionString = "mongodb://localhost:27017"
+	connectionString = "mongodb://mongo:27017/?ssl=false"
 	dbName           = "userDatabase"
 	collectionName   = "user"
 )
