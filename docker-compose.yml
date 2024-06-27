@@ -1,21 +1,23 @@
-version: '3.8'
+version: '3.7'
 
 services:
-  app:
-    build: .
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mongo
-    environment:
-      - MONGO_URI=mongodb://mongo:27017
-
   mongo:
-    image: mongo:latest
+    image: mongo
+    container_name: mongodb
     ports:
-      - "27017:27017"
+      - "27018:27017"
     volumes:
       - mongo-data:/data/db
+
+  web:
+    build: .
+    container_name: goapp
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+    links:
+      - mongo
 
 volumes:
   mongo-data:
